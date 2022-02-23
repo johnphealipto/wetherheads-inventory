@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+
+:root {
+  --clr-white: #fff;
+  --clr-black: #333333;
+  --warning: red;
+  --clr-accent: #10923b;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  background: linear-gradient(to left, rgba(0, 0, 0, .35) 50%, rgba(0, 0, 0, .65) 100%), url(../img/bg-img.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+input, 
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+#form-container {
+  max-width: 950px;
+  margin: auto;
+  padding: 1.5rem 1rem;
+}
+
+.page-intro {
+  background-color: var(--clr-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem .5rem;
+  border-radius: 2px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+#form-container form {
+  gap: 1.25rem;
+}
+
+#form-container form .form-grp {
+  background-color: var(--clr-white);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem .85rem;
+  padding-bottom: 1.5rem;
+  border-radius: 2px;
+}
+
+#form-container form .form-grp label {
+  color: var(--clr-black);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+form .form-grp label span {
+  color: var(--warning);
+}
+
+form .form-grp input,
+form .form-grp select,
+form .form-grp textarea {
+  background-color: var(--clr-white);
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--clr-black);
+}
+
+form .form-grp_btn button {
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
+  font-weight: 600;
+  width: 100%;
+  border: none;
+  padding: .85rem .65rem;
+  border-radius: 2px;
+}
+form .form-grp_btn button:hover {
+  background-color: rgba(16, 147, 60, .95);
+}
+form .form-grp_btn button:disabled {
+  background-color: rgba(16, 147, 60, .5);
+  cursor: not-allowed;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: var(--clr-accent) !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  box-shadow: none !important;
+}
+
+
+/*** --- Login Screen --- ***/
+#login-container {
+  max-width: 500px;
+  margin: auto;
+  display: grid;
+  align-items: center;
+  height: 100vh;
+  padding: 1.5rem 1rem;
+}
+
+#login-container form {
+  background-color: var(--clr-white);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 2.25rem;
+  border-radius: 5px;
+}
+
+#login-container form h1 {
+  color: var(--clr-black);
+  margin-bottom: 1rem;
+}
+
+#login-container form .form-grp {
+  display: flex;
+  flex-direction: column;
+}
+
+#login-container form .form-grp label {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  margin-bottom: 1rem;
+}
+#login-container form button {
+  margin-top: 1rem;
+}

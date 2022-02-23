@@ -1,0 +1,1 @@
+export const baseURL = "https://x8ki-letl-twmt.n7.xano.io/api:rW5dcCJ5";
