@@ -1,23 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
+import Swal from 'sweetalert2';
 import { MdOutlineEmail, MdLockOpen } from 'react-icons/md';
 
 const Login = () => {
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    if(localStorage.token) {
+      navigate("/dashboard")
+    }
+  }, [navigate])
+  
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    try {
+      setLoading(true)
+      const { data } = await axios.post(baseURL + "/auth/login", {
+        email,
+        password,
+      }, config)
+      localStorage.setItem("token", data.authToken)
+      setLoading(false)
+    }
+    catch(err){
+      Swal.fire({
+        icon: 'error',
+        title: 'Ooops',
+        text: `${err.response && err.response.data.message ? err.response.data.message : err.message}`
+      })
+      setLoading(false)
+    }
+  }
+
   return (
     <div id="login-container">
-      <form>
+      <form onSubmit={handleLogin}>
         <h1>Login</h1>
         <div className="form-grp">
           <label htmlFor="email"><MdOutlineEmail size={20} color="#10923b" />Email</label>
           <input 
             type="email" 
             id="email"
-            // value={name}
-            // onChange={(e) => setName(e.target.value)} 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} 
             required
           />
         </div>
@@ -26,8 +65,8 @@ const Login = () => {
           <input 
             type="password" 
             id="password"
-            // value={name}
-            // onChange={(e) => setName(e.target.value)} 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} 
             required
           />
         </div>
