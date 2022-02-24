@@ -13,11 +13,13 @@ const Login = () => {
 
   const [loading, setLoading] = useState(false)
 
+  const token = localStorage.getItem("token")
+
   useEffect(() => {
-    if(localStorage.token) {
+    if(localStorage.getItem("token")) {
       navigate("/dashboard")
     }
-  }, [navigate])
+  }, [navigate, token])
   
 
   const handleLogin = async (e) => {
@@ -35,6 +37,7 @@ const Login = () => {
       }, config)
       localStorage.setItem("token", data.authToken)
       setLoading(false)
+      navigate("/dashboard")
     }
     catch(err){
       Swal.fire({

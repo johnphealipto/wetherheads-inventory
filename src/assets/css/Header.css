@@ -1,0 +1,93 @@
+header {
+  background-color: var(--clr-white);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 2rem;
+  z-index: 99;
+  box-shadow: var(--box-shadow);
+}
+
+header .logo {
+  color: var(--clr-black);
+  white-space: nowrap;
+}
+
+header .logo span {
+  color: var(--clr-accent);
+}
+
+header button.user-btn {
+  background-color: var(--clr-white);
+  color: var(--clr-black);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .5rem;
+  border: 1px solid #b9b9b9;
+  border-radius: 25px;
+}
+
+header .dropdown {
+  background-color: var(--clr-white);
+  color: var(--txt-black);
+  position: absolute;
+  top: 5rem;
+  right: 2.15rem;
+  font-weight: bold;
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 5px;
+  border: 1px solid var(--clr-blue);
+  transition: var(--transition);
+  box-shadow: var(--box-shadow);
+}
+header .dropdown:before {
+  position: absolute;
+  content: "";
+  height: 0;
+  width: 0;
+  top: -7px;
+  right: 15px;
+  border-bottom: 7px solid var(--clr-white);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+}
+header .dropdown.display {
+  top: 4.5rem;
+  opacity: 1;
+  visibility: visible;
+}
+
+header .dropdown .drop-item {
+  color: var(--clr-black);
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  font-weight: bold;
+  padding: .85rem .65rem;
+  padding-right: 2rem;
+  border-radius: 5px;
+  border: 2px solid var(--clr-white);
+  transition: var(--transition);
+}
+header .dropdown .drop-item:hover {
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
+}
+
+header .dropdown button {
+  background-color: var(--clr-white);
+  outline: none;
+  border: none;
+}
+
+
+/* --- Devices (523px) --- */
+@media only screen and (max-width: 523px) {
+  header {
+    padding: .5rem 1rem;
+  }
+}

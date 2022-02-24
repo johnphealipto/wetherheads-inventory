@@ -13,6 +13,11 @@
   --clr-black: #333333;
   --warning: red;
   --clr-accent: #10923b;
+  --transition: all 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  --box-shadow: 0 0 4px rgba(0, 0, 0, .025),
+                0 0 16px rgba(0, 0, 0, .025),
+                0 0 32px rgba(0, 0, 0, .025),
+                0 0 64px rgba(0, 0, 0, .025);
 }
 
 body {
@@ -25,6 +30,10 @@ body {
   height: 100vh;
 }
 
+a {
+  text-decoration: none;
+}
+
 input, 
 select,
 textarea,
@@ -34,6 +43,88 @@ button {
 
 button {
   cursor: pointer;
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  background-color: var(--clr-white);
+  width: 100%;
+  color: var(--clr-black);
+  margin-top: 1rem;
+  border-collapse: collapse;
+  box-shadow: var(--box-shadow);
+}
+table thead tr,
+table tbody tr {
+  border-bottom: 1px solid #e7e7e7;
+}
+table th,
+table td {
+  text-align: left;
+  padding: .65rem;
+}
+table tbody tr:nth-of-type(odd) {
+  background-color: #f8fffa;
+}
+
+/* --- Table Footer --- */
+#table-footer {
+  background-color: #fff;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding: .75rem .5rem;
+  box-shadow: var(--box-shadow);
+}
+.pagination-container {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.pagination-container a {
+  color: #707683;
+  padding: .25rem .5rem;
+  user-select: none;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.pagination-container a:hover {
+  color: var(--clr-accent) !important;
+  border: 1px solid var(--clr-accent);
+}
+.pagination-active a,
+.pagination-active a:hover {
+  background-color: var(--clr-accent);
+  color: #fff !important;
+  border: 1px solid var(--clr-accent);
+}
+#table-footer a.previous-btn,
+#table-footer a.next-btn {
+  display: flex;
+  align-items: center;
+  color: var(--clr-accent);
+  border: 1px solid rgba(16, 146, 59, .5);
+}
+.pagination-disabled a,
+.pagination-disabled a:hover {
+  color: #b4b4b4 !important;
+  cursor: not-allowed;
+  border: 1px solid #b4b4b4 !important;
+}
+/* --- End Pagination --- */
+
+.container {
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 1rem
 }
 
 #form-container {
@@ -68,6 +159,7 @@ form {
   padding: 1rem .85rem;
   padding-bottom: 1.5rem;
   border-radius: 2px;
+  box-shadow: var(--box-shadow);
 }
 
 #form-container form .form-grp label {
@@ -156,3 +248,4 @@ form .form-grp_btn button:disabled {
 
 /* --- Other CSS Files --- */
 @import url(./Dashboard.css);
+@import url(./Header.css);
