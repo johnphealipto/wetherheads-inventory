@@ -45,17 +45,59 @@ button {
   cursor: pointer;
 }
 
+.page-title { 
+  color: var(--clr-black);
+  /* text-align: center; */
+  margin-bottom: 1.5rem;
+}
+
+.page-title a { 
+  color: var(--clr-accent);
+}
+.page-title a:hover { 
+  text-decoration: underline;
+}
+
+main {
+  padding: .5rem 2rem;
+  margin-top: 1rem;
+}
+
 .table-responsive {
   display: block;
   width: 100%;
   overflow-x: auto;
 }
 
+.table-features {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+}
+
+.table-features button,
+.table-features a {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem .75rem;
+  border-radius: 2px;
+}
+
+.table-features button {
+  background-color: var(--clr-white);
+  border: 1px solid var(--clr-accent);
+}
+
+.table-features a {
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
+}
+
 table {
   background-color: var(--clr-white);
   width: 100%;
   color: var(--clr-black);
-  margin-top: 1rem;
   border-collapse: collapse;
   box-shadow: var(--box-shadow);
 }
@@ -69,7 +111,12 @@ table td {
   padding: .65rem;
 }
 table tbody tr:nth-of-type(odd) {
-  background-color: #f8fffa;
+  background-color: #f5fff7;
+}
+.table-msg {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 /* --- Table Footer --- */
