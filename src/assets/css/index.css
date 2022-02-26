@@ -293,6 +293,118 @@ form .form-grp_btn button:disabled {
 }
 
 
+/* --- Reports Page --- */
+.custom-filter {
+  position: relative;
+}
+.filter-dropdown {
+  position: absolute;
+  background-color: #fff;
+  padding: 1rem;
+  top: 0;
+  left: 10rem;
+  opacity: 0;
+  visibility: hidden;
+  width: max-content;
+  /* overflow: hidden; */
+  border-radius: 3px;
+  z-index: 999;
+  box-shadow: var(--box-shadow);
+  transition: .15s ease-in-out;
+}
+.filter-dropdown.display {
+  left: 9.5rem;
+  opacity: 1;
+  visibility: visible;
+}
+
+.checkbox-grp {
+  position: relative;
+}
+.checkbox-grp .close-btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: .05rem;
+  color: #5c5c5c;
+  top: .2rem;
+  right: 0;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid var(--clr-white);
+  transition: .05s ease-in-out;
+}
+.checkbox-grp .close-btn:hover {
+  border: 1px solid var(--clr-black);
+}
+.filter-dropdown .checkbox-grp p {
+  color: #5c5c5c;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: .5rem;
+}
+
+.checkbox-ctrl {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.checkbox-ctrl input[type="radio"]:checked {
+  filter: invert(29%) sepia(100%) saturate(3065%) hue-rotate(132deg) brightness(94%) contrast(95%);
+}
+.checkbox-ctrl label {
+  padding-left: 10px;
+}
+.checkbox-grp .filter-date-range {
+  display: grid;
+  grid-template-columns: .7fr .7fr;
+  gap: 0 30px;
+}
+.checkbox-grp .filter-date-range input[type="text"],
+.checkbox-grp .filter-date-range input[type="date"] {
+  background-color: #fff;
+  padding: 2px 8px;
+  width: 100%;
+  color: #4b4b4b;
+  border-radius: 3px;
+  outline: none;
+  border: 0;
+  border: 1px solid #cfcfcf;
+  box-shadow: 0 0 1px #cfcfcf;
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+}
+.checkbox-grp .filter-date-range input[type="text"]:disabled {
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 0 1px #f0f0f0;
+}
+.checkbox-grp .filter-date-range input[type="date"]:focus {
+  outline: none;
+  border: 1px solid var(--clr-accent);
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+}
+
+.submit-filter {
+  display: flex;
+  justify-content: flex-end;
+}
+.checkbox-grp input[type="submit"] {
+  background-color: var(--clr-accent);
+  color: #ffff;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px !important;
+  padding: .5rem 1.25rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
+  transition: all 0.3s ease-out;
+}
+
 /* --- Other CSS Files --- */
 @import url(./Dashboard.css);
 @import url(./Header.css);

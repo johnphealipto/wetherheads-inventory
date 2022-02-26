@@ -11,11 +11,15 @@ import { MdOutlineErrorOutline } from 'react-icons/md';
 import { FaFilter } from 'react-icons/fa';
 import TableLoader from '../components/TableLoader';
 import TimeSheetDownloader from '../components/TimeSheetDownloader';
+import CustomFilter from '../components/CustomFilter';
 
 const TimeSheetRecords = () => {
   const navigate = useNavigate()
 
+  const [dropFilter, setDropFilter] = useState(false)
+
   const [data, setData] = useState([])
+  const [filter, setFilter] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -31,6 +35,7 @@ const TimeSheetRecords = () => {
         const res = await axios.get(baseURL + "/time_sheet", config)
         setIsLoading(false)
         setData(res.data)
+        setFilter(res.data)
       }
       getTimeSheets()
     } 
@@ -58,7 +63,13 @@ const TimeSheetRecords = () => {
         </h3>
         <div className="table-features">
           <div className="custom-filter">
-            <button>Custome filter <FaFilter color="#10923b" /></button>
+            <button onClick={() => setDropFilter(!dropFilter)}>Custome filter <FaFilter color="#10923b" /></button>
+            <CustomFilter 
+              setData={setData}
+              filter={filter}
+              dropFilter={dropFilter}
+              setDropFilter={setDropFilter}
+            />
           </div>
           <TimeSheetDownloader data={data} />
         </div>
@@ -87,7 +98,7 @@ const TimeSheetRecords = () => {
                 (data.length === 0) ?
                   <tr>
                     <td className="table-msg" colSpan={6}>
-                      <MdOutlineErrorOutline size={6} />
+                      <MdOutlineErrorOutline size={75} />
                       <p>No record found</p>
                     </td>
                   </tr>
