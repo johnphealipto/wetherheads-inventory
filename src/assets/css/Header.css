@@ -14,8 +14,8 @@ header .logo {
   white-space: nowrap;
 }
 
-header .logo span {
-  color: var(--clr-accent);
+header .logo img {
+  width: 12rem;
 }
 
 header button.user-btn {

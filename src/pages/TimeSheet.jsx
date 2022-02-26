@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
 import Swal from 'sweetalert2';
-import { FcAlarmClock } from 'react-icons/fc';
+import Logo from "../assets/img/wetherheads.jpeg";
 
 const TimeSheet = () => {
 
@@ -56,7 +56,9 @@ const TimeSheet = () => {
     <div id="form-container">
       <form onSubmit={handlePostTimeSheet}>
         <div className="page-intro">
-          <FcAlarmClock size={35} />
+          <div className="logo-area">
+            <img src={Logo} alt="Whether Heads Logo" />
+          </div>
           <h3>Time Sheet Application</h3>
         </div>
         <div className="form-grp">

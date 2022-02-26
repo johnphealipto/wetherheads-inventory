@@ -263,6 +263,15 @@ form .form-grp_btn button:disabled {
   padding: 1.5rem 1rem;
 }
 
+.logo-area {
+  display: flex;
+  justify-content: center;
+}
+
+.logo-area img {
+  width: 15rem;
+}
+
 #login-container form {
   background-color: var(--clr-white);
   display: flex;

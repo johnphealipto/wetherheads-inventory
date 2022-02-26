@@ -4,6 +4,7 @@ import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
 import Swal from 'sweetalert2';
 import { MdOutlineEmail, MdLockOpen } from 'react-icons/md';
+import Logo from "../assets/img/wetherheads.jpeg";
 
 const Login = () => {
   const navigate = useNavigate()
@@ -52,6 +53,9 @@ const Login = () => {
   return (
     <div id="login-container">
       <form onSubmit={handleLogin}>
+        <div className="logo-area">
+          <img src={Logo} alt="Whether Heads Logo" />
+        </div>
         <h1>Login</h1>
         <div className="form-grp">
           <label htmlFor="email"><MdOutlineEmail size={20} color="#10923b" />Email</label>

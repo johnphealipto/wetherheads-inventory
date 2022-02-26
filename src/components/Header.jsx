@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaUserCircle } from 'react-icons/fa';
 import { HiMenuAlt1 } from 'react-icons/hi';
 import { MdLogout } from 'react-icons/md';
+import Logo from "../assets/img/wetherheads.jpeg";
 
 const Header = () => {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ const Header = () => {
     <header>
       <h3>
         <Link to="/dashboard" className="logo">
-          <span>Whether</span> Heads
+          <img src={Logo} alt="Whether Heads Logo" />
         </Link>
       </h3>
       <button type="button" className="user-btn" onClick={() => setDropdown(!dropdown)}>
