@@ -4,27 +4,21 @@ import moment from 'moment';
 import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
 import Header from '../components/Header';
-import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import ReactPaginate from "react-paginate";
+import { IoIosArrowRoundBack, IoIosArrowRoundForward, IoMdPersonAdd } from "react-icons/io";
 import { VscCloudDownload } from 'react-icons/vsc';
 import { MdOutlineErrorOutline } from 'react-icons/md';
-import { FaFilter } from 'react-icons/fa';
 import TableLoader from '../components/TableLoader';
-import TimeSheetDownloader from '../components/TimeSheetDownloader';
-import CustomFilter from '../components/CustomFilter';
 
-const TimeSheetRecords = () => {
+const Users = () => {
   const navigate = useNavigate()
 
-  const [dropFilter, setDropFilter] = useState(false)
-
   const [data, setData] = useState([])
-  const [filter, setFilter] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if(localStorage.getItem("token")) {
-      const getTimeSheets = async () => {
+      const getUsers = async () => {
         const config = {
           headers: {
             'Content-Type': 'application/json',
@@ -32,12 +26,11 @@ const TimeSheetRecords = () => {
           }
         }
         setIsLoading(true)
-        const res = await axios.get(baseURL + "/time_sheet", config)
+        const res = await axios.get(baseURL + "/user", config)
         setIsLoading(false)
         setData(res.data)
-        setFilter(res.data)
       }
-      getTimeSheets()
+      getUsers()
     } 
     else {
       navigate("/")
@@ -59,31 +52,21 @@ const TimeSheetRecords = () => {
       <Header />
       <main>
         <h3 className="page-title">
-          <Link to="/dashboard">Dashboard</Link> | Time Sheet Records
+          <Link to="/dashboard">Dashboard</Link> | Registered Users
         </h3>
         <div className="table-features">
-          <div className="custom-filter">
-            <button className='wg-btn-light' onClick={() => setDropFilter(!dropFilter)}>Custome filter <FaFilter color="#10923b" /></button>
-            <CustomFilter 
-              setData={setData}
-              filter={filter}
-              dropFilter={dropFilter}
-              setDropFilter={setDropFilter}
-            />
+          <div>
+            <button className='wg-btn-solid'>Create <IoMdPersonAdd color="#fff" /></button>
           </div>
-          <TimeSheetDownloader data={data} />
         </div>
         <div className="table-responsive">
           {isLoading && <TableLoader isLoading={isLoading} />}
           <table>
             <thead>
               <tr>
-                <th>Date</th>
+                <th>Date Registered</th>
                 <th>Name</th>
-                <th>Location</th>
-                <th>Time In</th>
-                <th>Time Out</th>
-                <th>Remarks</th>
+                <th>Email</th>
               </tr>
             </thead>
             <tbody>
@@ -107,16 +90,7 @@ const TimeSheetRecords = () => {
                   <tr key={item.id}>
                     <td>{moment(item.created_at).format('Do MMM YYYY')}</td>
                     <td>{item.name}</td>
-                    <td>{item.location}</td>
-                    <td>{moment(item.time_in).format('h:mm A')}</td>
-                    <td>
-                      {item.time_out ? 
-                        <>{moment(item.time_out).format('h:mm A')}</>
-                      :
-                        <>-</>
-                      }
-                    </td>
-                    <td>{item.remarks}</td>
+                    <td>{item.email}</td>
                   </tr>
               )}
             </tbody>
@@ -145,4 +119,4 @@ const TimeSheetRecords = () => {
   )
 }
 
-export default TimeSheetRecords
+export default Users;

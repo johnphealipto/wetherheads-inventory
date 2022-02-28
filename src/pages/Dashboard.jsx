@@ -5,6 +5,7 @@ import { baseURL } from "../shared/baseURL";
 import Header from '../components/Header';
 import VisialData from "../assets/img/visual_data.svg";
 import { TiThListOutline, TiStopwatch } from 'react-icons/ti';
+import { FaUsers } from 'react-icons/fa';
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -39,7 +40,7 @@ const Dashboard = () => {
           <img src={VisialData} alt="Hello User" />
           <div className="welcome-note">
             <h2>Welcome, Administrator</h2>
-            <p>Which report will you like to generate today?</p>
+            <p>What will you like to do today?</p>
           </div>
         </div>
         <section className="menu-grid">
@@ -52,6 +53,11 @@ const Dashboard = () => {
             <TiThListOutline size={40} color=" #10923b" />
             <h3>Stock</h3>
             <p>Generate & Download Stock Records</p>
+          </Link>
+          <Link to="/registered-users" className="menu-card">
+            <FaUsers size={40} color=" #10923b" />
+            <h3>Users</h3>
+            <p>Get Registered Users & Add New User</p>
           </Link>
         </section>
       </main>

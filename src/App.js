@@ -5,6 +5,7 @@ import TimeSheet from './pages/TimeSheet';
 import Stock from './pages/Stock';
 import Dashboard from './pages/Dashboard';
 import TimeSheetRecords from './pages/TimeSheetRecords';
+import Users from './pages/Users';
 
 function App() {
   
@@ -16,6 +17,7 @@ function App() {
         <Route path="/time-sheet" element={<TimeSheet />} />
         <Route path="/records/time-sheet" element={<TimeSheetRecords />} />
         <Route path="/stock" element={<Stock />} />
+        <Route path="/registered-users" element={<Users />} />
       </Routes>
     </div>
   );

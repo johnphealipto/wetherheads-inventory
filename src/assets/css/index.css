@@ -47,7 +47,6 @@ button {
 
 .page-title { 
   color: var(--clr-black);
-  /* text-align: center; */
   margin-bottom: 1.5rem;
 }
 
@@ -56,6 +55,23 @@ button {
 }
 .page-title a:hover { 
   text-decoration: underline;
+}
+
+.whg-nav-tabs {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-bottom: 1.25rem;
+}
+.whg-nav-tabs li {
+  background-color: var(--clr-white);
+  padding: .25rem .75rem;
+  cursor: pointer;
+  border: 3px solid var(--clr-white);
+}
+.whg-nav-tabs li.active {
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
 }
 
 main {
@@ -84,14 +100,16 @@ main {
   border-radius: 2px;
 }
 
-.table-features button {
+button.wg-btn-light {
   background-color: var(--clr-white);
   border: 1px solid var(--clr-accent);
 }
 
-.table-features a {
-  background-color: var(--clr-accent);
+.table-features a,
+button.wg-btn-solid {
+  background-color: var(--clr-accent) !important;
   color: var(--clr-white);
+  border: 1px solid var(--clr-accent);
 }
 
 table {
@@ -168,7 +186,7 @@ table tbody tr:nth-of-type(odd) {
 /* --- End Pagination --- */
 
 .container {
-  max-width: 1000px;
+  max-width: 1150px;
   margin-right: auto;
   margin-left: auto;
   padding: 0 1rem
@@ -186,6 +204,7 @@ table tbody tr:nth-of-type(odd) {
   flex-direction: column;
   align-items: center;
   gap: .5rem;
+  margin-bottom: 1.25rem;
   padding: 1rem .5rem;
   border-radius: 2px;
 }
@@ -243,6 +262,24 @@ form .form-grp_btn button:hover {
 form .form-grp_btn button:disabled {
   background-color: rgba(16, 147, 60, .5);
   cursor: not-allowed;
+}
+
+/* --- Movement IDs --- */
+.movement-id-area {
+  color: var(--clr-black);
+}
+.movement-id-area span {
+  background-color: rgba(16, 146, 59, .15);
+  color: var(--clr-accent);
+  font-weight: 600;
+  padding: .075rem .25rem;
+  border-radius: 5px;
+  border: 1px solid var(--clr-accent);
+}
+button.check-id {
+  width: fit-content;
+  padding: .25rem .65rem;
+  margin-top: .5rem;
 }
 
 .swal2-styled.swal2-confirm {

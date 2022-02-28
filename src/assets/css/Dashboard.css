@@ -21,8 +21,8 @@
 
 #dashboard .menu-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
   padding-bottom: 5rem;
   margin-top: 4.5rem;
 }
@@ -41,7 +41,7 @@
 }
 
 #dashboard .menu-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.025);
 }
 
 #dashboard .menu-card h3 {
@@ -55,9 +55,9 @@
 
 
 /* --- Devices (750px) --- */
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 800px) {
   #dashboard .menu-grid {
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
