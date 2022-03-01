@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaUserCircle } from 'react-icons/fa';
 import { HiMenuAlt1 } from 'react-icons/hi';
 import { MdLogout } from 'react-icons/md';
-import Logo from "../assets/img/wetherheads.jpeg";
+import Logo from "../assets/img/wetherheads.png";
 
 const Header = () => {
   const navigate = useNavigate()

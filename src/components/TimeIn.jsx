@@ -77,55 +77,59 @@ const TimeIn = () => {
 
   return (
     <form onSubmit={handlePostTimeSheet}>
-      <div className="form-grp">
-        <label htmlFor="name">Name<span>*</span></label>
-        <select 
-          id="name" 
-          value={name}
-          onChange={(e) => setName(e.target.value)} 
-          required
-        > 
-          {users.map((item, i) => 
-            <option key={i} value={item.name}>{item.name}</option>
-          )}
-        </select>
-      </div>
-      <div className="form-grp">
-        <label htmlFor="location">Location<span>*</span></label>
-        <input 
-          type="text" 
-          id="location" 
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-grp">
-        <label htmlFor="time-in">Time In<span>*</span></label>
-        <input 
-          type="time" 
-          id="time-in" 
-          value={time_in}
-          onChange={(e) => setTimeIn(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-grp">
-        <label htmlFor="remarks">Remarks<span>*</span></label>
-        <textarea 
-          id="remarks" 
-          rows="1" 
-          value={remarks}
-          onChange={(e) => setRemarks(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-grp_btn">
-        <button type="submit" disabled={loading}>
-          {loading ? "Submitting..." : "Submit"}
-        </button>
-      </div>
-      {movementId && 
+      {!movementId ?
+        <>
+          <div className="form-grp">
+            <label htmlFor="name">Name<span>*</span></label>
+            <select 
+              id="name" 
+              value={name}
+              onChange={(e) => setName(e.target.value)} 
+              required
+            > 
+              <option></option>
+              {users.map((item, i) => 
+                <option key={i} value={item.name}>{item.name}</option>
+              )}
+            </select>
+          </div>
+          <div className="form-grp">
+            <label htmlFor="location">Location<span>*</span></label>
+            <input 
+              type="text" 
+              id="location" 
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-grp">
+            <label htmlFor="time-in">Time In<span>*</span></label>
+            <input 
+              type="time" 
+              id="time-in" 
+              value={time_in}
+              onChange={(e) => setTimeIn(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-grp">
+            <label htmlFor="remarks">Remarks<span>*</span></label>
+            <textarea 
+              id="remarks" 
+              rows="1" 
+              value={remarks}
+              onChange={(e) => setRemarks(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-grp_btn">
+            <button type="submit" disabled={loading}>
+              {loading ? "Submitting..." : "Submit"}
+            </button>
+          </div>
+        </>
+      :
         <div className="form-grp movement-id-area">
           <p>Movement ID: <span>{movementId}</span></p>
           <p>Why do I need this ID? It will be used when you about clocking out for the day</p>

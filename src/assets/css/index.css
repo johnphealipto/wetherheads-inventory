@@ -22,7 +22,7 @@
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  background: linear-gradient(to left, rgba(0, 0, 0, .35) 50%, rgba(0, 0, 0, .65) 100%), url(../img/bg-img.jpg);
+  background: linear-gradient(to left, rgba(16, 146, 59, .225) 50%, rgba(16, 146, 59, .225)), url(../img/bg-img.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -294,8 +294,9 @@ button.check-id {
 #login-container {
   max-width: 500px;
   margin: auto;
-  display: grid;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100vh;
   padding: 1.5rem 1rem;
 }
@@ -315,7 +316,7 @@ button.check-id {
   flex-direction: column;
   gap: 2rem;
   padding: 2rem 2.25rem;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 #login-container form h1 {
@@ -336,6 +337,30 @@ button.check-id {
 }
 #login-container form button {
   margin-top: 1rem;
+}
+
+#login-container .inventory-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+#login-container .inventory-links a {
+  background-color: var(--clr-white);
+  color: var(--clr-accent);
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  padding: .5rem 1rem;
+  border-radius: 3px;
+  transition: var(--transition);
+}
+#login-container .inventory-links a:nth-child(2) {
+  align-items: flex-end;
+}
+#login-container .inventory-links a:hover {
+  transform: scale(1.025);
 }
 
 
@@ -454,3 +479,4 @@ button.check-id {
 /* --- Other CSS Files --- */
 @import url(./Dashboard.css);
 @import url(./Header.css);
+@import url(./Modal.css);

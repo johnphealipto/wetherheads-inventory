@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Logo from "../assets/img/wetherheads.jpeg";
+import Logo from "../assets/img/wetherheads.png";
 import TimeIn from '../components/TimeIn';
 import TimeOut from '../components/TimeOut';
 

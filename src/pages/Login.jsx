@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
 import Swal from 'sweetalert2';
 import { MdOutlineEmail, MdLockOpen } from 'react-icons/md';
-import Logo from "../assets/img/wetherheads.jpeg";
+import Logo from "../assets/img/wetherheads.png";
+import { TiThListOutline, TiStopwatch } from 'react-icons/ti';
 
 const Login = () => {
   const navigate = useNavigate()
@@ -83,6 +84,16 @@ const Login = () => {
           </button>
         </div>
       </form>
+      <div className="inventory-links">
+        <Link to="/time-sheet" target="_blank">
+          <TiStopwatch size={25} color='#333' />
+          Time Sheet
+        </Link>
+        <Link to="#">
+          <TiThListOutline size={25} color='#333' />
+          Stock
+        </Link>
+      </div>
     </div>
   )
 }

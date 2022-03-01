@@ -1,0 +1,38 @@
+#whg-modal {
+  color: var(--clr-black);
+}
+
+#whg-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#whg-modal .modal-header button {
+  background-color: var(--clr-white);
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  border: 1px solid var(--clr-white);
+}
+
+#whg-modal .modal-header button:hover {
+  border: 1px solid var(--clr-accent);
+}
+
+#whg-modal .add-user_form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+#whg-modal .form-grp {
+  display: flex;
+  flex-direction: column;
+}
+
+#whg-modal .form-grp input {
+  width: 100%;
+  margin-top: .5rem;
+}

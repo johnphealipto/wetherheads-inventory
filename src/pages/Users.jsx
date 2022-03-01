@@ -7,35 +7,55 @@ import Header from '../components/Header';
 import ReactPaginate from "react-paginate";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward, IoMdPersonAdd } from "react-icons/io";
 import { VscCloudDownload } from 'react-icons/vsc';
-import { MdOutlineErrorOutline } from 'react-icons/md';
+import { MdOutlineErrorOutline, MdClose } from 'react-icons/md';
 import TableLoader from '../components/TableLoader';
+import Modal from 'react-modal';
+import AddUser from '../components/AddUser';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: "30%",
+  },
+};
+
+Modal.setAppElement('#root');
 
 const Users = () => {
   const navigate = useNavigate()
+
+  const [modalIsOpen, setIsOpen] = useState(false)
+  const openModal = () => setIsOpen(true)
+  const closeModal = () => setIsOpen(false)
 
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if(localStorage.getItem("token")) {
-      const getUsers = async () => {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.token}`
-          }
-        }
-        setIsLoading(true)
-        const res = await axios.get(baseURL + "/user", config)
-        setIsLoading(false)
-        setData(res.data)
-      }
       getUsers()
     } 
     else {
       navigate("/")
     }
   }, [navigate])
+
+  const getUsers = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    setIsLoading(true)
+    const res = await axios.get(baseURL + "/user", config)
+    setIsLoading(false)
+    setData(res.data)
+  }
   
 
   // --- Pagination --- //
@@ -56,7 +76,7 @@ const Users = () => {
         </h3>
         <div className="table-features">
           <div>
-            <button className='wg-btn-solid'>Create <IoMdPersonAdd color="#fff" /></button>
+            <button className='wg-btn-solid' onClick={openModal}>Add User <IoMdPersonAdd color="#fff" /></button>
           </div>
         </div>
         <div className="table-responsive">
@@ -115,6 +135,25 @@ const Users = () => {
           }
         </div>
       </main>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="WHG Modal"
+      >
+        <div id="whg-modal">
+          <div className="modal-header">
+            <h3>Add New User</h3>
+            <button type='button' onClick={closeModal}><MdClose size={25} /></button>
+          </div>
+          <AddUser 
+            getUsers={getUsers} 
+            closeModal={closeModal} 
+          />
+        </div>
+      </Modal>
+
     </div>
   )
 }
