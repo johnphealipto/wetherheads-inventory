@@ -89,7 +89,7 @@ const Login = () => {
           <TiStopwatch size={25} color='#333' />
           Time Sheet
         </Link>
-        <Link to="#">
+        <Link to="stock" target="_blank">
           <TiThListOutline size={25} color='#333' />
           Stock
         </Link>

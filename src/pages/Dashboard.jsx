@@ -49,7 +49,7 @@ const Dashboard = () => {
             <h3>Time Sheet</h3>
             <p>Generate & Download Time Sheet Records</p>
           </Link>
-          <Link to="#" className="menu-card">
+          <Link to="/records/stock" className="menu-card">
             <TiThListOutline size={40} color=" #10923b" />
             <h3>Stock</h3>
             <p>Generate & Download Stock Records</p>

@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
 import Swal from 'sweetalert2';
-import { FcPackage } from 'react-icons/fc';
+import Logo from "../assets/img/wetherheads.png";
 
 const Stock = () => {
-  const [name, setName] = useState("")
-  const [location, setLocation] = useState("")
-  const [time_in, setTimeIn] = useState("")
-  const [time_out, setTimeOut] = useState("")
-  const [remarks, setRemarks] = useState("")
+
+  const [item, setItem] = useState("")
+  const [quantity_in_stock, setQuantityInStock] = useState("")
+  const [quantity_in, setQuantityIn] = useState("")
+  const [quantity_out, setQuantityOut] = useState("")
+  const [balance, setBalance] = useState("")
+  const [remark, setRemark] = useState("")
 
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setBalance(quantity_in_stock - quantity_out)
+  }, [quantity_in_stock, quantity_out])
+  
 
   const handlePostStock = async (e) => {
     e.preventDefault()
@@ -22,23 +29,25 @@ const Stock = () => {
     }
     try {
       setLoading(true)
-      await axios.post(baseURL + "/time_sheet", {
-        name,
-        location,
-        time_in,
-        time_out,
-        remarks
+      await axios.post(baseURL + "/stock", {
+        item,
+        quantity_in_stock,
+        quantity_in,
+        quantity_out,
+        balance,
+        remark
       }, config)
       Swal.fire({
         icon: 'success',
         title: 'Posted',
         text: "Your information have been saved!"
       })
-      setName("")
-      setLocation("")
-      setTimeIn("")
-      setTimeOut("")
-      setRemarks("")
+      setItem("")
+      setQuantityInStock("")
+      setQuantityIn("")
+      setQuantityOut("")
+      setBalance("")
+      setRemark("")
       setLoading(false)
     }
     catch(err){
@@ -53,57 +62,60 @@ const Stock = () => {
 
   return (
     <div id="form-container">
+      <div className="page-intro">
+        <div className="logo-area">
+          <img src={Logo} alt="Whether Heads Logo" />
+        </div>
+        <h3>Stock Application</h3>
+      </div>
       <form onSubmit={handlePostStock}>
-        <div className="page-intro">
-          <FcPackage size={35} />
-          <h3>Stock Application</h3>
-        </div>
         <div className="form-grp">
-          <label htmlFor="name">Items<span>*</span></label>
+          <label htmlFor="item">Item<span>*</span></label>
           <input 
             type="text" 
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)} 
+            id="item"
+            value={item}
+            onChange={(e) => setItem(e.target.value)} 
             required
           />
         </div>
         <div className="form-grp">
-          <label htmlFor="location">Quantity In stock<span>*</span></label>
+          <label htmlFor="qis">Quantity In stock<span>*</span></label>
           <input 
-            type="text" 
-            id="location" 
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            type="number" 
+            id="qis" 
+            value={quantity_in_stock}
+            onChange={(e) => setQuantityInStock(e.target.value)}
             required
           />
         </div>
         <div className="form-grp">
-          <label htmlFor="time-in">Quantity In<span>*</span></label>
+          <label htmlFor="quantity-in">Quantity In<span>*</span></label>
           <input 
-            type="time" 
-            id="time-in" 
-            value={time_in}
-            onChange={(e) => setTimeIn(e.target.value)}
+            type="number" 
+            id="quantity-in" 
+            value={quantity_in}
+            onChange={(e) => setQuantityIn(e.target.value)}
             required
           />
         </div>
         <div className="form-grp">
-          <label htmlFor="time-out">Quantity In<span>*</span></label>
+          <label htmlFor="quantity-out">Quantity Out<span>*</span></label>
           <input 
-            type="time" 
-            id="time-out" 
-            value={time_out}
-            onChange={(e) => setTimeOut(e.target.value)}
+            type="number" 
+            id="quantity-out" 
+            value={quantity_out}
+            onChange={(e) => setQuantityOut(e.target.value)}
             required
           />
         </div>
         <div className="form-grp">
-          <label htmlFor="balance">Balance<span>*</span></label>
+          <label htmlFor="balance">Balance</label>
           <input 
-            type="time" 
-            id="balance" 
-            required
+            type="number" 
+            id="balance"
+            value={balance} 
+            disabled
           />
         </div>
         <div className="form-grp">
@@ -111,8 +123,8 @@ const Stock = () => {
           <textarea 
             id="remarks" 
             rows="1" 
-            value={remarks}
-            onChange={(e) => setRemarks(e.target.value)}
+            value={remark}
+            onChange={(e) => setRemark(e.target.value)}
             required
           />
         </div>

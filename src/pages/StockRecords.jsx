@@ -10,10 +10,10 @@ import { VscCloudDownload } from 'react-icons/vsc';
 import { MdOutlineErrorOutline } from 'react-icons/md';
 import { FaFilter } from 'react-icons/fa';
 import TableLoader from '../components/TableLoader';
-import TimeSheetDownloader from '../components/TimeSheetDownloader';
+import StockDownloader from '../components/StockDownloader';
 import CustomFilter from '../components/CustomFilter';
 
-const TimeSheetRecords = () => {
+const StockRecords = () => {
   const navigate = useNavigate()
 
   const [dropFilter, setDropFilter] = useState(false)
@@ -32,7 +32,7 @@ const TimeSheetRecords = () => {
           }
         }
         setIsLoading(true)
-        const res = await axios.get(baseURL + "/time_sheet", config)
+        const res = await axios.get(baseURL + "/stock", config)
         setIsLoading(false)
         setData(res.data)
         setFilter(res.data)
@@ -59,7 +59,7 @@ const TimeSheetRecords = () => {
       <Header />
       <main>
         <h3 className="page-title">
-          <Link to="/dashboard">Dashboard</Link> | Time Sheet Records
+          <Link to="/dashboard">Dashboard</Link> | Stock Records
         </h3>
         <div className="table-features">
           <div className="custom-filter">
@@ -71,7 +71,7 @@ const TimeSheetRecords = () => {
               setDropFilter={setDropFilter}
             />
           </div>
-          <TimeSheetDownloader data={data} />
+          <StockDownloader data={data} />
         </div>
         <div className="table-responsive">
           {isLoading && <TableLoader isLoading={isLoading} />}
@@ -79,11 +79,11 @@ const TimeSheetRecords = () => {
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Movement ID</th>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Time In</th>
-                <th>Time Out</th>
+                <th>Item</th>
+                <th>Quantity In Stock</th>
+                <th>Quantity In</th>
+                <th>Quantity Out</th>
+                <th>Balance</th>
                 <th>Remarks</th>
               </tr>
             </thead>
@@ -107,18 +107,12 @@ const TimeSheetRecords = () => {
                 paginateData.map(item =>
                   <tr key={item.id}>
                     <td>{moment(item.created_at).format('Do MMM YYYY')}</td>
-                    <td>{item.unique_id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.location}</td>
-                    <td>{moment(item.time_in).format('h:mm A')}</td>
-                    <td>
-                      {item.time_out ? 
-                        <>{moment(item.time_out).format('h:mm A')}</>
-                      :
-                        <>-</>
-                      }
-                    </td>
-                    <td>{item.remarks}</td>
+                    <td>{item.item}</td>
+                    <td>{item.quantity_in_stock}</td>
+                    <td>{item.quantity_in}</td>
+                    <td>{item.quantity_out}</td>
+                    <td>{item.balance}</td>
+                    <td>{item.remark}</td>
                   </tr>
               )}
             </tbody>
@@ -147,4 +141,4 @@ const TimeSheetRecords = () => {
   )
 }
 
-export default TimeSheetRecords
+export default StockRecords;

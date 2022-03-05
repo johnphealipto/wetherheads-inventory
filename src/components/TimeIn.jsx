@@ -58,7 +58,7 @@ const TimeIn = () => {
         title: 'Posted',
         text: "Your information have been saved!"
       })
-      setMovementId(res.data.id)
+      setMovementId(res.data.unique_id)
       setName("")
       setLocation("")
       setTimeIn("")
