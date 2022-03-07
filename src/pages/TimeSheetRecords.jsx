@@ -79,12 +79,12 @@ const TimeSheetRecords = () => {
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Movement ID</th>
                 <th>Name</th>
                 <th>Location</th>
                 <th>Time In</th>
                 <th>Time Out</th>
                 <th>Remarks</th>
+                <th>Movement ID</th>
               </tr>
             </thead>
             <tbody>
@@ -107,7 +107,6 @@ const TimeSheetRecords = () => {
                 paginateData.map(item =>
                   <tr key={item.id}>
                     <td>{moment(item.created_at).format('Do MMM YYYY')}</td>
-                    <td>{item.unique_id}</td>
                     <td>{item.name}</td>
                     <td>{item.location}</td>
                     <td>{moment(item.time_in).format('h:mm A')}</td>
@@ -119,6 +118,7 @@ const TimeSheetRecords = () => {
                       }
                     </td>
                     <td>{item.remarks}</td>
+                    <td>{item.id}</td>
                   </tr>
               )}
             </tbody>

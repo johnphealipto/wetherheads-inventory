@@ -136,6 +136,19 @@ table tbody tr:nth-of-type(odd) {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
+table .actions {
+  padding: .25rem;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+}
+table .btn-delete {
+  background-color: #ff4800;
+  color: var(--clr-white);
+}
+table .btn-delete:hover {
+  background-color: var(--clr-accent);
+}
 
 /* --- Table Footer --- */
 #table-footer {

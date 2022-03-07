@@ -11,6 +11,7 @@ import { MdOutlineErrorOutline, MdClose } from 'react-icons/md';
 import TableLoader from '../components/TableLoader';
 import Modal from 'react-modal';
 import AddUser from '../components/AddUser';
+import Swal from 'sweetalert2';
 
 const customStyles = {
   content: {
@@ -35,6 +36,7 @@ const Users = () => {
 
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [loadingDelete, setLoadingDelete] = useState(false)
 
   useEffect(() => {
     if(localStorage.getItem("token")) {
@@ -67,6 +69,33 @@ const Users = () => {
   const paginateData = data.slice(pagesVisited, pagesVisited + pageItems)
   // -- End Pagination
 
+  const handleDeleteUser = async (item) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    try {
+      setLoadingDelete(true)
+      await axios.delete(baseURL + `/user/${item.id}`, config)
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted',
+        text: `${item.name} have been removed`
+      })
+      getUsers()
+      setLoadingDelete(false)
+    }
+    catch(err){
+      Swal.fire({
+        icon: 'error',
+        title: 'Ooops',
+        text: `${err.response && err.response.data.message ? err.response.data.message : err.message}`
+      })
+      setLoadingDelete(false)
+    }
+  }
+
   return (
     <div id="admin-page-body">
       <Header />
@@ -87,6 +116,7 @@ const Users = () => {
                 <th>Date Registered</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -111,6 +141,16 @@ const Users = () => {
                     <td>{moment(item.created_at).format('Do MMM YYYY')}</td>
                     <td>{item.name}</td>
                     <td>{item.email}</td>
+                    <td>
+                      <button 
+                        type="button" 
+                        className="actions btn-delete"
+                        disabled={loadingDelete}
+                        onClick={() => handleDeleteUser(item)}
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
               )}
             </tbody>
