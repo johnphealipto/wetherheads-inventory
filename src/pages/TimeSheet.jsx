@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import Logo from "../assets/img/wetherheads.png";
-import TimeIn from '../components/TimeIn';
 import TimeOut from '../components/TimeOut';
+import TimeIn from '../components/TimeIn';
 
 const TimeSheet = () => {
 
   const [activeTab, setActiveTab] = useState(0)
-  const tabs = ["Time In", "Time Out"]
+  const tabs = ["Time Out", "Time In"]
 
   const tabPanels = [
-    { component: <TimeIn /> },
-    { component: <TimeOut /> }
+    { component: <TimeOut /> },
+    { component: <TimeIn /> }
   ]
 
   return (

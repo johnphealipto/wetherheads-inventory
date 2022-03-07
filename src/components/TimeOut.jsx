@@ -1,59 +1,68 @@
-import React, { useState } from 'react';
-import moment from 'moment';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
 import Swal from 'sweetalert2';
 
 const TimeOut = () => {
-  const [id, setId] = useState("")
+  const [users, setUsers] = useState([])
+
+  const [name, setName] = useState("")
+  const [location, setLocation] = useState("")
   const [time_out, setTimeOut] = useState("")
+  const [remarks, setRemarks] = useState("")
 
-  const [data, setData] = useState({})
-
-  const [loading, setLoading] = useState(false)
-  const [loadingId, setLoadingId] = useState(false)
-
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
+  const [movementId, setMovementId] = useState("")
   
-  const handleGetTimeSheetById = async () => {
-    try {
-      setLoadingId(true)
-      const res = await axios.get(baseURL + `/time_sheet/${id}`, config)
-      setData(res.data)
-      setLoadingId(false)
-    }
-    catch(err){
-      Swal.fire({
-        icon: 'error',
-        title: 'Ooops',
-        text: `${err.response && err.response.data.message ? err.response.data.message : err.message}`
-      })
-      setLoadingId(false)
-    }
-  }
+  const [loading, setLoading] = useState(false)
 
-  const handleTimeOut = async (e) => {
+  useEffect(() => {
+    const getUsers = async () => {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      try {
+        const res = await axios.get(baseURL + "/user", config)
+        setUsers(res.data)
+      }
+      catch(err){
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops',
+          text: `${err.response && err.response.data.message ? err.response.data.message : err.message}`
+        })
+      }
+    }
+    getUsers()
+  }, [])
+  
+
+  const handlePostTimeSheet = async (e) => {
     e.preventDefault()
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
     try {
       setLoading(true)
-      await axios.post(baseURL + `/time_sheet/${id}`, {
-        name: data.name,
-        location: data.location,
-        time_in: data.time_in,
-        time_out: time_out,
-        remarks: data.remarks
+      const res = await axios.post(baseURL + "/time_sheet", {
+        name,
+        location,
+        time_out,
+        remarks
       }, config)
       Swal.fire({
         icon: 'success',
         title: 'Posted',
         text: "Your information have been saved!"
       })
+      setMovementId(res.data.id)
+      setName("")
+      setLocation("")
       setTimeOut("")
-      handleGetTimeSheetById()
+      setRemarks("")
       setLoading(false)
     }
     catch(err){
@@ -67,82 +76,68 @@ const TimeOut = () => {
   }
 
   return (
-    <form onSubmit={handleTimeOut}>
-      <div className="form-grp">
-        <label htmlFor="id">Movement ID</label>
-        <input 
-          type="text" 
-          id="id"
-          value={id}
-          onChange={(e) => setId(e.target.value)} 
-        />
-        <button 
-          type='button'
-          className='check-id wg-btn-solid'
-          onClick={handleGetTimeSheetById}
-          disabled={loadingId}
-        >
-          {loadingId ? "Checking..." : "Check"}
-        </button>
-      </div>
-      {(!(Object.keys(data).length === 0) && !loadingId) &&
+    <form onSubmit={handlePostTimeSheet}>
+      {!movementId ?
         <>
           <div className="form-grp">
-            <label htmlFor="name">Name</label>
-            <input 
-              type="text" 
-              id="name"
-              value={data.name}
-              disabled
-            />
+            <label htmlFor="name">Name<span>*</span></label>
+            <select 
+              id="name" 
+              value={name}
+              onChange={(e) => setName(e.target.value)} 
+              required
+            > 
+              <option></option>
+              {users.map((item, i) => 
+                <option key={i} value={item.name}>{item.name}</option>
+              )}
+            </select>
           </div>
           <div className="form-grp">
-            <label htmlFor="location">Location</label>
+            <label htmlFor="location">Location<span>*</span></label>
             <input 
               type="text" 
               id="location" 
-              value={data.location}
-              disabled
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
             />
           </div>
           <div className="form-grp">
-            <label htmlFor="time-in">Time In</label>
+            <label htmlFor="time-in">Time Out<span>*</span></label>
             <input 
               type="time" 
               id="time-in" 
-              value={moment(data.time_in).format('HH:mm')}
-              disabled
-            />
-          </div>
-          <div className="form-grp">
-            <label htmlFor="time-out">Time Out {!(data.time_out) && <span>*</span>}</label>
-            <input 
-              type="time" 
-              id="time-out" 
-              value={data.time_out ? moment(data.time_out).format('HH:mm') : time_out}
+              value={time_out}
               onChange={(e) => setTimeOut(e.target.value)}
               required
-              disabled={data.time_out && true}
             />
           </div>
           <div className="form-grp">
-            <label htmlFor="remarks">Remarks</label>
+            <label htmlFor="remarks">Remarks<span>*</span></label>
             <textarea 
               id="remarks" 
               rows="1" 
-              value={data.remarks}
-              disabled
+              value={remarks}
+              onChange={(e) => setRemarks(e.target.value)}
+              required
             />
           </div>
           <div className="form-grp_btn">
-            <button type="submit" disabled={(loading || data.time_out) && true}>
+            <button type="submit" disabled={loading}>
               {loading ? "Submitting..." : "Submit"}
             </button>
           </div>
         </>
+      :
+        <div className="form-grp movement-id-area">
+          <p>Movement ID: <span>{movementId}</span></p>
+          <p>Why do I need this ID? It will be used when you about clocking out for the day</p>
+          <strong>Please Copy & Save</strong>
+        </div>
       }
     </form>
   )
 }
 
-export default TimeOut
+export default TimeOut;

@@ -81,8 +81,8 @@ const TimeSheetRecords = () => {
                 <th>Date</th>
                 <th>Name</th>
                 <th>Location</th>
-                <th>Time In</th>
                 <th>Time Out</th>
+                <th>Time In</th>
                 <th>Remarks</th>
                 <th>Movement ID</th>
               </tr>
@@ -109,10 +109,10 @@ const TimeSheetRecords = () => {
                     <td>{moment(item.created_at).format('Do MMM YYYY')}</td>
                     <td>{item.name}</td>
                     <td>{item.location}</td>
-                    <td>{moment(item.time_in).format('h:mm A')}</td>
+                    <td>{moment(item.time_out).format('h:mm A')}</td>
                     <td>
-                      {item.time_out ? 
-                        <>{moment(item.time_out).format('h:mm A')}</>
+                      {item.time_in ? 
+                        <>{moment(item.time_in).format('h:mm A')}</>
                       :
                         <>-</>
                       }
