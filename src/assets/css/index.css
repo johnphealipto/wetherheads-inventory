@@ -380,6 +380,8 @@ button.check-id {
 /* --- Reports Page --- */
 .custom-filter {
   position: relative;
+  display: flex;
+  gap: 1.5rem;
 }
 .filter-dropdown {
   position: absolute;
@@ -467,6 +469,12 @@ button.check-id {
   border: 1px solid var(--clr-accent);
   transition: all 0.3s ease-out;
   -webkit-transition: all 0.3s ease-out;
+}
+.custom-filter .search-field {
+  padding: .5rem .75rem;
+  border-radius: 2px;
+  outline: none;
+  border: 1px solid var(--clr-accent);
 }
 
 .submit-filter {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
 import Swal from 'sweetalert2';
@@ -10,16 +10,10 @@ const Stock = () => {
   const [quantity_in_stock, setQuantityInStock] = useState("")
   const [quantity_in, setQuantityIn] = useState("")
   const [quantity_out, setQuantityOut] = useState("")
-  const [balance, setBalance] = useState("")
   const [remark, setRemark] = useState("")
 
   const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    setBalance(quantity_in_stock - quantity_out)
-  }, [quantity_in_stock, quantity_out])
   
-
   const handlePostStock = async (e) => {
     e.preventDefault()
     const config = {
@@ -34,7 +28,6 @@ const Stock = () => {
         quantity_in_stock,
         quantity_in,
         quantity_out,
-        balance,
         remark
       }, config)
       Swal.fire({
@@ -46,7 +39,6 @@ const Stock = () => {
       setQuantityInStock("")
       setQuantityIn("")
       setQuantityOut("")
-      setBalance("")
       setRemark("")
       setLoading(false)
     }
@@ -80,7 +72,7 @@ const Stock = () => {
           />
         </div>
         <div className="form-grp">
-          <label htmlFor="qis">Quantity In stock<span>*</span></label>
+          <label htmlFor="qis">Quantity in Stock<span>*</span></label>
           <input 
             type="number" 
             id="qis" 
@@ -90,23 +82,21 @@ const Stock = () => {
           />
         </div>
         <div className="form-grp">
-          <label htmlFor="quantity-in">Quantity In<span>*</span></label>
+          <label htmlFor="quantity-in">Quantity In</label>
           <input 
             type="number" 
             id="quantity-in" 
             value={quantity_in}
             onChange={(e) => setQuantityIn(e.target.value)}
-            required
           />
         </div>
         <div className="form-grp">
-          <label htmlFor="quantity-out">Quantity Out<span>*</span></label>
+          <label htmlFor="quantity-out">Quantity Out</label>
           <input 
             type="number" 
             id="quantity-out" 
             value={quantity_out}
             onChange={(e) => setQuantityOut(e.target.value)}
-            required
           />
         </div>
         <div className="form-grp">
@@ -114,7 +104,7 @@ const Stock = () => {
           <input 
             type="number" 
             id="balance"
-            value={balance} 
+            value={(Number(quantity_in_stock) + Number(quantity_in)) - Number(quantity_out)} 
             disabled
           />
         </div>

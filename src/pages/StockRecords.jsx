@@ -20,6 +20,7 @@ const StockRecords = () => {
 
   const [data, setData] = useState([])
   const [filter, setFilter] = useState([])
+  const [result, setResult] = useState("");
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -43,7 +44,11 @@ const StockRecords = () => {
       navigate("/")
     }
   }, [navigate])
-  
+
+  useEffect(() => {
+    const searchedData = filter.filter(data => (data.item.toLowerCase().includes(result)));
+    setData(searchedData)
+  }, [result, filter])
 
   // --- Pagination --- //
   const [pageNumber, setPageNumber] = useState(0)
@@ -70,6 +75,13 @@ const StockRecords = () => {
               dropFilter={dropFilter}
               setDropFilter={setDropFilter}
             />
+            <input 
+              type="search" 
+              className="search-field" 
+              placeholder="Search item" 
+              value={result}
+              onChange={(e) => setResult(e.target.value)}
+            />
           </div>
           <StockDownloader data={data} />
         </div>
@@ -80,7 +92,7 @@ const StockRecords = () => {
               <tr>
                 <th>Date</th>
                 <th>Item</th>
-                <th>Quantity In Stock</th>
+                <th>Quantity in Stock</th>
                 <th>Quantity In</th>
                 <th>Quantity Out</th>
                 <th>Balance</th>
