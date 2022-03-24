@@ -6,6 +6,9 @@ import Logo from "../assets/img/wetherheads.png";
 
 const Stock = () => {
 
+  const [entryCode, setEntryCode] = useState("")
+  const [grantEntry, setGrantEntry] = useState(false)
+
   const [item, setItem] = useState("")
   const [unit_price, setUnitPrice] = useState("")
   const [opening_balance, setOpeningBalance] = useState("")
@@ -58,6 +61,21 @@ const Stock = () => {
     }
   }
 
+  const handleGrantEnrty = () => {
+    if(entryCode === "Stock360@WAG") {
+      setTimeout(() => {
+        setGrantEntry(true)
+      }, 500)
+    } 
+    else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ooops',
+        text: "Wrong Entry Code!"
+      })
+    }
+  }
+
   return (
     <div id="form-container">
       <div className="page-intro">
@@ -67,78 +85,99 @@ const Stock = () => {
         <h3>Stock Application</h3>
       </div>
       <form onSubmit={handlePostStock}>
-        <div className="form-grp">
-          <label htmlFor="item">Stock Item<span>*</span></label>
-          <input 
-            type="text" 
-            id="item"
-            value={item}
-            onChange={(e) => setItem(e.target.value)} 
-            required
-          />
-        </div>
-        <div className="form-grp">
-          <label htmlFor="price">Unit Price<span>*</span></label>
-          <input 
-            type="text" 
-            id="price"
-            value={unit_price}
-            onChange={(e) => setUnitPrice(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-grp">
-          <label htmlFor="qis">Opening Balance<span>*</span></label>
-          <input 
-            type="number" 
-            id="qis" 
-            value={opening_balance}
-            onChange={(e) => setOpeningBalance(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-grp">
-          <label htmlFor="quantity-in">Quantity In</label>
-          <input 
-            type="number" 
-            id="quantity-in" 
-            value={quantity_in}
-            onChange={(e) => setQuantityIn(e.target.value)}
-          />
-        </div>
-        <div className="form-grp">
-          <label htmlFor="quantity-out">Quantity Out</label>
-          <input 
-            type="number" 
-            id="quantity-out" 
-            value={quantity_out}
-            onChange={(e) => setQuantityOut(e.target.value)}
-          />
-        </div>
-        <div className="form-grp">
-          <label htmlFor="balance">Closing Balance</label>
-          <input 
-            type="number" 
-            id="balance"
-            value={closing_balance} 
-            disabled
-          />
-        </div>
-        <div className="form-grp">
-          <label htmlFor="remarks">Remarks<span>*</span></label>
-          <textarea 
-            id="remarks" 
-            rows="1" 
-            value={remark}
-            onChange={(e) => setRemark(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-grp_btn">
-          <button type="submit" disabled={loading}>
-            {loading ? "Submitting..." : "Submit"}
-          </button>
-        </div>
+        {!grantEntry ? 
+          <div className="form-grp">
+            <label htmlFor="code">Entry Code</label>
+            <input 
+              type="text" 
+              id="code"
+              value={entryCode}
+              onChange={(e) => setEntryCode(e.target.value)} 
+            />
+            <button 
+              type='button'
+              className='check-id wg-btn-solid'
+              onClick={handleGrantEnrty}
+            >
+              Submit
+            </button>
+          </div>
+        :
+          <>
+            <div className="form-grp">
+              <label htmlFor="item">Stock Item<span>*</span></label>
+              <input 
+                type="text" 
+                id="item"
+                value={item}
+                onChange={(e) => setItem(e.target.value)} 
+                required
+              />
+            </div>
+            <div className="form-grp">
+              <label htmlFor="price">Unit Price<span>*</span></label>
+              <input 
+                type="text" 
+                id="price"
+                value={unit_price}
+                onChange={(e) => setUnitPrice(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-grp">
+              <label htmlFor="qis">Opening Balance<span>*</span></label>
+              <input 
+                type="number" 
+                id="qis" 
+                value={opening_balance}
+                onChange={(e) => setOpeningBalance(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-grp">
+              <label htmlFor="quantity-in">Quantity In</label>
+              <input 
+                type="number" 
+                id="quantity-in" 
+                value={quantity_in}
+                onChange={(e) => setQuantityIn(e.target.value)}
+              />
+            </div>
+            <div className="form-grp">
+              <label htmlFor="quantity-out">Quantity Out</label>
+              <input 
+                type="number" 
+                id="quantity-out" 
+                value={quantity_out}
+                onChange={(e) => setQuantityOut(e.target.value)}
+              />
+            </div>
+            <div className="form-grp">
+              <label htmlFor="balance">Closing Balance</label>
+              <input 
+                type="number" 
+                id="balance"
+                value={closing_balance} 
+                disabled
+              />
+            </div>
+            <div className="form-grp">
+              <label htmlFor="remarks">Remarks<span>*</span></label>
+              <textarea 
+                id="remarks" 
+                rows="1" 
+                value={remark}
+                onChange={(e) => setRemark(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-grp_btn">
+              <button type="submit" disabled={loading}>
+                {loading ? "Submitting..." : "Submit"}
+              </button>
+            </div>
+          </>
+        }
       </form>
     </div>
   )

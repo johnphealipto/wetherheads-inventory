@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 const TimeIn = () => {
   const [id, setId] = useState("")
-  const [time_in, setTimeIn] = useState("")
+  const time_in = new Date()
 
   const [data, setData] = useState({})
 
@@ -52,7 +52,6 @@ const TimeIn = () => {
         title: 'Posted',
         text: "Your information have been saved!"
       })
-      setTimeIn("")
       handleGetTimeSheetById()
       setLoading(false)
     }
@@ -115,14 +114,12 @@ const TimeIn = () => {
             />
           </div>
           <div className="form-grp">
-            <label htmlFor="time-out">Time In {!(data.time_in) && <span>*</span>}</label>
+            <label htmlFor="time-out">Time In</label>
             <input 
               type="time" 
               id="time-In" 
-              value={data.time_in ? moment(data.time_in).format('HH:mm') : time_in}
-              onChange={(e) => setTimeIn(e.target.value)}
-              required
-              disabled={data.time_in && true}
+              value={data.time_in ? moment(data.time_in).format('HH:mm') : moment(time_in).format('HH:mm')}
+              disabled
             />
           </div>
           <div className="form-grp">

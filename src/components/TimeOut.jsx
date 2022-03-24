@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
+import moment from 'moment';
 import Swal from 'sweetalert2';
 
 const TimeOut = () => {
@@ -8,9 +9,9 @@ const TimeOut = () => {
 
   const [name, setName] = useState("")
   const [location, setLocation] = useState("")
-  const [time_out, setTimeOut] = useState("")
+  const time_out = new Date()
   const [remarks, setRemarks] = useState("")
-
+  
   const [movementId, setMovementId] = useState("")
   
   const [loading, setLoading] = useState(false)
@@ -61,7 +62,6 @@ const TimeOut = () => {
       setMovementId(res.data.id)
       setName("")
       setLocation("")
-      setTimeOut("")
       setRemarks("")
       setLoading(false)
     }
@@ -104,13 +104,12 @@ const TimeOut = () => {
             />
           </div>
           <div className="form-grp">
-            <label htmlFor="time-in">Time Out<span>*</span></label>
+            <label htmlFor="time-in">Time Out</label>
             <input 
               type="time" 
               id="time-in" 
-              value={time_out}
-              onChange={(e) => setTimeOut(e.target.value)}
-              required
+              value={moment(time_out).format('HH:mm')}
+              disabled
             />
           </div>
           <div className="form-grp">
