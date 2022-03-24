@@ -7,10 +7,11 @@ const StockDownloader = ({ data }) => {
   const headers = [
     { label: "Date", key: "date" },
     { label: "Item", key: "item" },
-    { label: "Quantity In Stock", key: "quantityInStock" },
+    { label: "Unit Price", key: "unitPrice" },
+    { label: "Opening Balance", key: "quantityInStock" },
     { label: "Quantity In", key: "quantityIn" },
     { label: "Quantity Out", key: "quantityOut" },
-    { label: "Balance", key: "balance" },
+    { label: "Closing Balance", key: "balance" },
     { label: "Remarks", key: "remarks" },
   ]
 
@@ -20,10 +21,11 @@ const StockDownloader = ({ data }) => {
       newData.push({
         date: moment(item.created_at).format('Do MMM YYYY'),
         item: item.item,
-        quantityInStock: item.quantity_in_stock,
+        unitPrice: item.unit_price,
+        quantityInStock: item.opening_balance,
         quantityIn: item.quantity_in,
         quantityOut: item.quantity_out,
-        balance: item.balance,
+        balance: item.closing_balance,
         remarks: item.remark,
       })
     })

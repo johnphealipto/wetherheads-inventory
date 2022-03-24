@@ -7,12 +7,15 @@ import Logo from "../assets/img/wetherheads.png";
 const Stock = () => {
 
   const [item, setItem] = useState("")
-  const [quantity_in_stock, setQuantityInStock] = useState("")
+  const [unit_price, setUnitPrice] = useState("")
+  const [opening_balance, setOpeningBalance] = useState("")
   const [quantity_in, setQuantityIn] = useState("")
   const [quantity_out, setQuantityOut] = useState("")
   const [remark, setRemark] = useState("")
 
   const [loading, setLoading] = useState(false)
+  
+  const closing_balance = (Number(opening_balance) + Number(quantity_in)) - Number(quantity_out)
   
   const handlePostStock = async (e) => {
     e.preventDefault()
@@ -25,9 +28,11 @@ const Stock = () => {
       setLoading(true)
       await axios.post(baseURL + "/stock", {
         item,
-        quantity_in_stock,
+        unit_price,
+        opening_balance,
         quantity_in,
         quantity_out,
+        closing_balance,
         remark
       }, config)
       Swal.fire({
@@ -36,7 +41,8 @@ const Stock = () => {
         text: "Your information have been saved!"
       })
       setItem("")
-      setQuantityInStock("")
+      setUnitPrice("")
+      setOpeningBalance("")
       setQuantityIn("")
       setQuantityOut("")
       setRemark("")
@@ -62,7 +68,7 @@ const Stock = () => {
       </div>
       <form onSubmit={handlePostStock}>
         <div className="form-grp">
-          <label htmlFor="item">Item<span>*</span></label>
+          <label htmlFor="item">Stock Item<span>*</span></label>
           <input 
             type="text" 
             id="item"
@@ -72,12 +78,22 @@ const Stock = () => {
           />
         </div>
         <div className="form-grp">
-          <label htmlFor="qis">Quantity in Stock<span>*</span></label>
+          <label htmlFor="price">Unit Price<span>*</span></label>
+          <input 
+            type="text" 
+            id="price"
+            value={unit_price}
+            onChange={(e) => setUnitPrice(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-grp">
+          <label htmlFor="qis">Opening Balance<span>*</span></label>
           <input 
             type="number" 
             id="qis" 
-            value={quantity_in_stock}
-            onChange={(e) => setQuantityInStock(e.target.value)}
+            value={opening_balance}
+            onChange={(e) => setOpeningBalance(e.target.value)}
             required
           />
         </div>
@@ -100,11 +116,11 @@ const Stock = () => {
           />
         </div>
         <div className="form-grp">
-          <label htmlFor="balance">Balance</label>
+          <label htmlFor="balance">Closing Balance</label>
           <input 
             type="number" 
             id="balance"
-            value={(Number(quantity_in_stock) + Number(quantity_in)) - Number(quantity_out)} 
+            value={closing_balance} 
             disabled
           />
         </div>

@@ -92,17 +92,18 @@ const StockRecords = () => {
               <tr>
                 <th>Date</th>
                 <th>Item</th>
-                <th>Quantity in Stock</th>
+                <th>Unit Price</th>
+                <th>Opening Balance</th>
                 <th>Quantity In</th>
                 <th>Quantity Out</th>
-                <th>Balance</th>
+                <th>Closing Balance</th>
                 <th>Remarks</th>
               </tr>
             </thead>
             <tbody>
               {(isLoading && data.length === 0) ?
                 <tr>
-                  <td className="table-msg" colSpan={7}>
+                  <td className="table-msg" colSpan={8}>
                   <VscCloudDownload size={75} />
                   <p>Fetching request...</p>
                   </td>
@@ -110,7 +111,7 @@ const StockRecords = () => {
               :
                 (data.length === 0) ?
                   <tr>
-                    <td className="table-msg" colSpan={7}>
+                    <td className="table-msg" colSpan={8}>
                       <MdOutlineErrorOutline size={75} />
                       <p>No record found</p>
                     </td>
@@ -120,10 +121,11 @@ const StockRecords = () => {
                   <tr key={item.id}>
                     <td>{moment(item.created_at).format('Do MMM YYYY')}</td>
                     <td>{item.item}</td>
-                    <td>{item.quantity_in_stock}</td>
+                    <td>{item.unit_price}</td>
+                    <td>{item.opening_balance}</td>
                     <td>{item.quantity_in}</td>
                     <td>{item.quantity_out}</td>
-                    <td>{item.balance}</td>
+                    <td>{item.closing_balance}</td>
                     <td>{item.remark}</td>
                   </tr>
               )}
