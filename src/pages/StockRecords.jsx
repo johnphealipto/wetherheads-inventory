@@ -7,11 +7,27 @@ import Header from '../components/Header';
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import ReactPaginate from "react-paginate";
 import { VscCloudDownload } from 'react-icons/vsc';
-import { MdOutlineErrorOutline } from 'react-icons/md';
-import { FaFilter } from 'react-icons/fa';
+import { MdOutlineErrorOutline, MdClose } from 'react-icons/md';
+import { FaFilter, FaRegEdit } from 'react-icons/fa';
 import TableLoader from '../components/TableLoader';
 import StockDownloader from '../components/StockDownloader';
 import CustomFilter from '../components/CustomFilter';
+import Modal from 'react-modal';
+import UpdateStock from '../components/UpdateStock';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: "30%",
+  },
+};
+
+Modal.setAppElement('#root');
 
 const StockRecords = () => {
   const navigate = useNavigate()
@@ -23,27 +39,38 @@ const StockRecords = () => {
   const [result, setResult] = useState("");
   const [isLoading, setIsLoading] = useState(false)
 
+  const [stockId, setStockId] = useState("")
+
+  // Handling Modal 
+  const [modalIsOpen, setIsOpen] = useState(false)
+  const openModal = (item) => {
+    setStockId(item.id)
+    setIsOpen(true)
+  }
+  const closeModal = () => setIsOpen(false)
+
   useEffect(() => {
     if(localStorage.getItem("token")) {
-      const getTimeSheets = async () => {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.token}`
-          }
-        }
-        setIsLoading(true)
-        const res = await axios.get(baseURL + "/stock", config)
-        setIsLoading(false)
-        setData(res.data)
-        setFilter(res.data)
-      }
-      getTimeSheets()
+      getStockRecords()
     } 
     else {
       navigate("/")
     }
   }, [navigate])
+  
+  const getStockRecords = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.token}`
+      }
+    }
+    setIsLoading(true)
+    const res = await axios.get(baseURL + "/stock", config)
+    setIsLoading(false)
+    setData(res.data)
+    setFilter(res.data)
+  }
 
   useEffect(() => {
     const searchedData = filter.filter(data => (data.item.toLowerCase().includes(result)));
@@ -98,6 +125,7 @@ const StockRecords = () => {
                 <th>Quantity Out</th>
                 <th>Closing Balance</th>
                 <th>Remarks</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -127,11 +155,39 @@ const StockRecords = () => {
                     <td>{item.quantity_out}</td>
                     <td>{item.closing_balance}</td>
                     <td>{item.remark}</td>
+                    <td>
+                      <span 
+                        style={{ cursor: 'pointer', padding: '.5rem' }}
+                        onClick={() => openModal(item)}
+                      >
+                        <FaRegEdit size={16.5} color='#e2522e' />
+                      </span>
+                    </td>
                   </tr>
               )}
             </tbody>
           </table>
         </div>
+
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="WHG Modal"
+        >
+          <div id="whg-modal">
+            <div className="modal-header">
+              <h3>Edit Stock</h3>
+              <button type='button' onClick={closeModal}><MdClose size={25} /></button>
+            </div>
+            <UpdateStock 
+              id={stockId} 
+              data={data}
+              getStockRecords={getStockRecords}
+            />
+          </div>
+        </Modal>
+
         <div id="table-footer">
           <p>Entries: {data.length}</p>
           {data.length > pageItems &&
