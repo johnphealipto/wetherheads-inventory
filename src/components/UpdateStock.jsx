@@ -3,15 +3,16 @@ import axios from 'axios';
 import { baseURL } from "../shared/baseURL";
 import Swal from 'sweetalert2';
 
-const UpdateStock = ({ id, data, getStockRecords }) => {
+const UpdateStock = ({ id, data, getStockRecords, closeModal }) => {
 
   const [item, setItem] = useState("")
   const [unit_price, setUnitPrice] = useState("")
   const [opening_balance, setOpeningBalance] = useState("")
   const [quantity_in, setQuantityIn] = useState("")
   const [quantity_out, setQuantityOut] = useState("")
-  const [closing_balance, setClosingBalance] = useState("")
   const [remark, seRemark] = useState("")
+
+  const closing_balance = (Number(opening_balance) + Number(quantity_in)) - Number(quantity_out)
 
   const [loading, setLoading] = useState(false)
 
@@ -23,7 +24,6 @@ const UpdateStock = ({ id, data, getStockRecords }) => {
       setOpeningBalance(stock[0].opening_balance)
       setQuantityIn(stock[0].quantity_in)
       setQuantityOut(stock[0].quantity_out)
-      setClosingBalance(stock[0].closing_balance)
       seRemark(stock[0].remark)
     }
   }, [id, data])
@@ -51,9 +51,13 @@ const UpdateStock = ({ id, data, getStockRecords }) => {
       Swal.fire({
         icon: 'success',
         title: 'Edited',
-        text: "Stock details have been saved!"
+        text: "Stock details have been saved!",
+        timer: 1500,
+        timerProgressBar: true,
+        showConfirmButton: false,
       })
       getStockRecords()
+      closeModal()
       setLoading(false)
     }
     catch(err){
@@ -125,8 +129,7 @@ const UpdateStock = ({ id, data, getStockRecords }) => {
             type="number" 
             id="closing_balance" 
             value={closing_balance}
-            onChange={(e) => setClosingBalance(e.target.value)}
-            required
+            disabled
           />
         </div>
         <div className="form-grp">

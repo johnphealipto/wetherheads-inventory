@@ -24,6 +24,8 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     minWidth: "30%",
+    maxHeight: '100vh',
+    overflowY: 'auto'
   },
 };
 
@@ -183,6 +185,7 @@ const StockRecords = () => {
             <UpdateStock 
               id={stockId} 
               data={data}
+              closeModal={closeModal}
               getStockRecords={getStockRecords}
             />
           </div>

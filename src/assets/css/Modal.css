@@ -1,6 +1,5 @@
 #whg-modal {
   color: var(--clr-black);
-  overflow-y: auto;
 }
 
 #whg-modal .modal-header {
