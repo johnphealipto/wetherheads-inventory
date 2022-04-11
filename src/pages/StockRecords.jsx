@@ -75,9 +75,12 @@ const StockRecords = () => {
   }
 
   useEffect(() => {
-    const searchedData = filter.filter(data => (data.item.toLowerCase().includes(result)));
-    setData(searchedData)
-  }, [result, filter])
+    setData(
+      filter.filter(item => 
+        item.item.toLowerCase().includes(result.toLowerCase())
+      )
+    )
+  }, [result])
 
   // --- Pagination --- //
   const [pageNumber, setPageNumber] = useState(0)
@@ -120,6 +123,7 @@ const StockRecords = () => {
             <thead>
               <tr>
                 <th>Date</th>
+                <th>Last Edited</th>
                 <th>Item</th>
                 <th>Unit Price</th>
                 <th>Opening Balance</th>
@@ -150,6 +154,13 @@ const StockRecords = () => {
                 paginateData.map(item =>
                   <tr key={item.id}>
                     <td>{moment(item.created_at).format('Do MMM YYYY')}</td>
+                    <td>
+                      {item.updated_at ? 
+                        moment(item.updated_at).format('Do MMM YYYY')
+                      :
+                        "No changes"
+                      }
+                    </td>
                     <td>{item.item}</td>
                     <td>{item.unit_price}</td>
                     <td>{item.opening_balance}</td>

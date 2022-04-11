@@ -11,6 +11,7 @@ const UpdateStock = ({ id, data, getStockRecords, closeModal }) => {
   const [quantity_in, setQuantityIn] = useState("")
   const [quantity_out, setQuantityOut] = useState("")
   const [remark, seRemark] = useState("")
+  const updated_at = new Date()
 
   const closing_balance = (Number(opening_balance) + Number(quantity_in)) - Number(quantity_out)
 
@@ -47,6 +48,7 @@ const UpdateStock = ({ id, data, getStockRecords, closeModal }) => {
         quantity_out,
         closing_balance,
         remark,
+        updated_at
       }, config)
       Swal.fire({
         icon: 'success',
